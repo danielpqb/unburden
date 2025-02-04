@@ -1,0 +1,57 @@
+{
+  "name": "unburden",
+  "version": "0.0.1",
+  "type": "module",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsup",
+    "yalc:push": "npm run build && yalc push"
+  },
+  "exports": {
+    "./inputs": "./dist/inputs/index.js",
+    "./velocimeter": "./dist/velocimeter/index.js"
+  },
+  "keywords": [
+    "react",
+    "react.js",
+    "next",
+    "next.js",
+    "Next.js",
+    "input",
+    "inputs",
+    "form",
+    "forms",
+    "react-hook-form"
+  ],
+  "files": [
+    "dist",
+    "./index.js",
+    "dist/index.css"
+  ],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "postcss": "^8.5.1",
+    "react-hook-form": "^7.54.2",
+    "react-icons": "^5.4.0",
+    "tailwind-merge": "^2.6.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.0.7",
+    "@types/react-dom": "^19.0.3",
+    "autoprefixer": "^10.4.20",
+    "tailwindcss": "^3.4.17",
+    "tsup": "^8.3.5",
+    "typescript": "^5.7.3"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "peerDependencies": {
+    "react": "^18",
+    "react-dom": "^18"
+  }
+}
