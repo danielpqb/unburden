@@ -3,10 +3,10 @@
 import { HiXMark } from "react-icons/hi2";
 import { useState } from "react";
 import { twMerge } from "tailwind-merge";
-import { TInputSelectAutocompleteProps } from "@/types/Input";
-import { useReactHookForm } from "@/hooks/useReactHookForm";
-import { useInputErrorMessages } from "@/hooks/useInputErrorMessages";
-import { useParentController } from "@/hooks/useParentController";
+import { TInputSelectAutocompleteProps } from "@/inputs/types/Input";
+import { useReactHookForm } from "@/inputs/hooks/useReactHookForm";
+import { useInputErrorMessages } from "@/inputs/hooks/useInputErrorMessages";
+import { useParentController } from "@/inputs/hooks/useParentController";
 import { ErrorMessages } from "../common/ErrorMessages";
 import { Label } from "../common/Label";
 

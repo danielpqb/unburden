@@ -3,8 +3,8 @@ import { defineConfig } from "tsup";
 export const tsup = defineConfig({
   entry: {
     index: "src/index.ts",
-    "inputs/index": "src/components/Inputs/index.ts",
-    "velocimeter/index": "src/components/Velocimeter/index.ts",
+    "inputs/index": "src/inputs/index.ts",
+    "velocimeter/index": "src/velocimeter/index.ts",
   },
   dts: true, // Gerar arquivos de definição de tipo (.d.ts)
   clean: true,

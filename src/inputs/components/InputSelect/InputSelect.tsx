@@ -1,9 +1,9 @@
 "use client";
 
-import { useInputErrorMessages } from "@/hooks/useInputErrorMessages";
-import { useParentController } from "@/hooks/useParentController";
-import { useReactHookForm } from "@/hooks/useReactHookForm";
-import { TInputSelectProps } from "@/types/Input";
+import { useInputErrorMessages } from "@/inputs/hooks/useInputErrorMessages";
+import { useParentController } from "@/inputs/hooks/useParentController";
+import { useReactHookForm } from "@/inputs/hooks/useReactHookForm";
+import { TInputSelectProps } from "@/inputs/types/Input";
 import { useEffect, useState } from "react";
 import { twMerge } from "tailwind-merge";
 import { Label } from "../common/Label";
