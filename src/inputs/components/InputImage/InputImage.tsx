@@ -15,11 +15,11 @@ export function InputImage({
   return (
     <div
       className={twMerge(
-        "flex flex-col items-center w-full",
+        "flex flex-col w-full",
         className?.container
       )}
     >
-      <div className="pb-1 w-full">
+      <div className="flex flex-col pb-1 w-full">
         <Label className={className?.label}>{label}</Label>
 
         <InputText

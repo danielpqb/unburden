@@ -70,7 +70,7 @@ export function InputText({
   return (
     <div
       className={twMerge(
-        "flex flex-col",
+        "flex flex-col w-full",
         className?.container,
         disabled && "input-disabled"
       )}

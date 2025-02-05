@@ -44,7 +44,7 @@ export function InputDate({
   return (
     <div
       className={twMerge(
-        "flex flex-col",
+        "flex flex-col w-full",
         className?.container,
         disabled && "input-disabled"
       )}
@@ -53,7 +53,7 @@ export function InputDate({
 
       <input
         className={twMerge(
-          "input-base",
+          "input-base !py-[7px]",
           !!currentValue &&
             defaultValue.split("T")[0] !== currentValue &&
             "input-modified",

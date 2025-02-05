@@ -40,7 +40,7 @@ export type TInputTextProps = TCommonProps & {
   maxLenght?: number;
 };
 
-export type TInputSelectAutocompleteProps = {
+export type TInputSelectProps = {
   reactHookForm?: { name?: string; control?: Control<any, any> };
   label?: string;
   noDataFoundMessage?: string;
@@ -87,15 +87,4 @@ export type TInputDateProps = TCommonProps & {
     errors?: { container?: string; span?: string };
   };
   onChange?: (value: string) => void;
-};
-
-export type TInputSelectProps = Omit<TCommonProps, "placeholder"> & {
-  className?: {
-    label?: string;
-    select?: string;
-    container?: string;
-    errors?: { container?: string; span?: string };
-  };
-  items: { value: string; label: string }[];
-  onChange?: (value: string, label: string) => void;
 };

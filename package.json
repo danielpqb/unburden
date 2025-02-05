@@ -11,7 +11,8 @@
   },
   "exports": {
     "./inputs": "./dist/inputs/index.js",
-    "./velocimeter": "./dist/velocimeter/index.js"
+    "./velocimeter": "./dist/velocimeter/index.js",
+    "./styles.css": "./dist/index.css"
   },
   "keywords": [
     "react",
