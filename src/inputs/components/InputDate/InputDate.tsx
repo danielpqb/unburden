@@ -4,10 +4,12 @@ import { useInputErrorMessages } from "@/inputs/hooks/useInputErrorMessages";
 import { useParentController } from "@/inputs/hooks/useParentController";
 import { useReactHookForm } from "@/inputs/hooks/useReactHookForm";
 import { TInputDateProps } from "@/inputs/types/Input";
-import { useState } from "react";
+// import { useState } from "react";
 import { twMerge } from "tailwind-merge";
 import { Label } from "../common/Label";
 import { ErrorMessages } from "../common/ErrorMessages";
+
+import { InputDate as ShadInputDate } from "../lib/InputDate";
 
 export function InputDate({
   reactHookForm: { name, control } = {},
@@ -20,7 +22,7 @@ export function InputDate({
   value,
 }: TInputDateProps) {
   // Valor exibido no formato correto (yyyy-mm-dd)
-  const [currentValue, setCurrentValue] = useState("");
+  // const [currentValue, setCurrentValue] = useState("");
 
   // Controller do react-hook-form para receber o valor do input no onSubmit
   const { field } = useReactHookForm({ name, control });
@@ -33,7 +35,7 @@ export function InputDate({
   // Atualiza todos os valores e dispara os eventos necessários
   function updateValue(value: string) {
     field.onChange(value);
-    setCurrentValue(value.split("T")[0]);
+    // setCurrentValue(value.split("T")[0]);
     onChange && onChange(value);
     handleErrorMessages(value);
   }
@@ -51,9 +53,10 @@ export function InputDate({
     >
       <Label className={className?.label}>{label}</Label>
 
-      <input
+      {/* <input
         className={twMerge(
           "input-base !py-[7px]",
+          !currentValue && "text-current text-opacity-60",
           !!currentValue &&
             defaultValue.split("T")[0] !== currentValue &&
             "input-modified",
@@ -68,7 +71,9 @@ export function InputDate({
           updateValue(isoDate);
         }}
         value={currentValue}
-      />
+      /> */}
+
+      <ShadInputDate field={field} />
 
       <ErrorMessages
         errorMessageArray={errorMessageArray}
