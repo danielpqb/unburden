@@ -6,7 +6,7 @@ import {
   danfeAccessKeyFormatter,
   phoneFormatter,
   rbnaCertificateNumberFormatter,
-} from "@/inputs/functions/stringFormatter";
+} from "@/library/inputs/functions/stringFormatter";
 
 export function formatText({
   parsedValue,

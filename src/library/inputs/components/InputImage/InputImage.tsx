@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { twMerge } from "tailwind-merge";
-import { TInputImageProps } from "@/inputs/types/Input";
+import { TInputImageProps } from "@/library/inputs/types/Input";
 import { InputText } from "../InputText/InputText";
 import { Label } from "../common/Label";
 export function InputImage({

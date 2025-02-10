@@ -3,10 +3,10 @@
 import { HiXMark } from "react-icons/hi2";
 import { useState } from "react";
 import { twMerge } from "tailwind-merge";
-import { TInputSelectProps } from "@/inputs/types/Input";
-import { useReactHookForm } from "@/inputs/hooks/useReactHookForm";
-import { useInputErrorMessages } from "@/inputs/hooks/useInputErrorMessages";
-import { useParentController } from "@/inputs/hooks/useParentController";
+import { TInputSelectProps } from "@/library/inputs/types/Input";
+import { useReactHookForm } from "@/library/inputs/hooks/useReactHookForm";
+import { useInputErrorMessages } from "@/library/inputs/hooks/useInputErrorMessages";
+import { useParentController } from "@/library/inputs/hooks/useParentController";
 import { ErrorMessages } from "../common/ErrorMessages";
 import { Label } from "../common/Label";
 

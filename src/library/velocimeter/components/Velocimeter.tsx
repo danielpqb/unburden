@@ -1,5 +1,17 @@
+import { deepMergeObjects } from "@/utils/deepMergeObjects";
 import { Fragment } from "react";
 import { twMerge } from "tailwind-merge";
+
+const defaultProps = {
+  value: 0,
+  maxValue: 100,
+  goal: 0,
+  dividers: { count: 10 },
+  bar: { perimeterPercentage: 0.9, thickness: 25 },
+  centerCircle: { thickness: 10, radius: 180 },
+  needle: { lengthPercentage: 0.4, widthPercentage: 1 },
+  numbers: { offsetRatio: { goal: 1, dividers: 0.95 } },
+};
 
 type TProps = {
   className?: {
@@ -13,18 +25,6 @@ type TProps = {
     numbers?: string;
     goal?: { number?: string; needle?: string };
   };
-  value: number;
-  maxValue?: number;
-  goal?: number;
-  barLengthPercentage?: number;
-  barStrokeWidth?: number;
-  centerCircleStrokeWidth?: number;
-  centerCircleRadius?: number;
-  needleLengthPercentage?: number;
-  needleWidthPercentage?: number;
-  dividers?: number;
-  numbersDistanceRatio?: number;
-  goalNumberDistanceRatio?: number;
   styles?: {
     color?: {
       primary?: string;
@@ -33,45 +33,75 @@ type TProps = {
       needle?: string;
     };
   };
+  value: number;
+  maxValue?: number;
+  goal?: number;
+  bar?: {
+    perimeterPercentage?: number;
+    thickness?: number;
+  };
+  centerCircle?: {
+    thickness?: number;
+    radius?: number;
+  };
+  needle?: {
+    lengthPercentage?: number;
+    widthPercentage?: number;
+  };
+  dividers?: {
+    count?: number;
+  };
+  numbers?: {
+    offsetRatio?: number;
+  };
 };
-export function Velocimeter({
-  className,
-  value,
-  maxValue = 100,
-  goal = 0,
-  styles,
-  barLengthPercentage = 0.9,
-  barStrokeWidth = 25,
-  centerCircleStrokeWidth = 10,
-  centerCircleRadius = 180,
-  needleLengthPercentage = 0.4,
-  needleWidthPercentage = 1,
-  dividers = 10,
-  numbersDistanceRatio = 0.95,
-  goalNumberDistanceRatio = 1,
-}: TProps) {
+
+export function Velocimeter({ className, styles, ...others }: TProps) {
+  // Merge default and received props
+  const mergedProps = deepMergeObjects(defaultProps, others);
+
+  // Properties Params
+  const {
+    value,
+    maxValue,
+    goal,
+    bar,
+    centerCircle,
+    dividers,
+    needle,
+    numbers,
+  } = mergedProps;
+  const barPerimeterPercentage = bar.perimeterPercentage;
+  const barThickness = bar.thickness;
+  const centerCircleThickness = centerCircle.thickness;
+  const centerCircleRadius = centerCircle.radius;
+  const needleLengthPercentage = needle.lengthPercentage;
+  const needleWidthPercentage = needle.widthPercentage;
+  const numbersDistanceRatio = numbers.offsetRatio;
+  const dividersCount = dividers.count;
+
   // Bar
-  const barRadius = 500 - barStrokeWidth / 2;
-  const fullCircleBarPerimeter = 2 * Math.PI * barRadius;
-  const barPerimeter = barLengthPercentage * fullCircleBarPerimeter;
-  const barValuePercentage = value / maxValue;
-  const barValuePercentagePerimeter = barValuePercentage * barLengthPercentage;
+  const barRadius = 500 - barThickness / 2;
+  const barTotalPerimeter = 2 * Math.PI * barRadius;
+  const barPerimeter = barPerimeterPercentage * barTotalPerimeter;
+  const barFilledPercentage = value / maxValue;
+  const barFilledPerimeter = barFilledPercentage * barPerimeterPercentage;
 
   // Center Circle
-  const fullCircleCenterCirclePerimeter = 2 * Math.PI * centerCircleRadius;
+  const centerCircleTotalPerimeter = 2 * Math.PI * centerCircleRadius;
   const centerCirclePerimeter =
-    barLengthPercentage * fullCircleCenterCirclePerimeter;
+    barPerimeterPercentage * centerCircleTotalPerimeter;
 
   //Goal
-  const goalValuePercentage = goal / maxValue;
-  const goalPercentagePerimeter = goalValuePercentage * barLengthPercentage;
+  const goalFilledPercentage = goal / maxValue;
+  const goalFilledPerimeter = goalFilledPercentage * barPerimeterPercentage;
 
   // Needle
   const needleLength = 350 * needleLengthPercentage;
   const needleWidth = 30 * needleWidthPercentage;
 
   // Dividers
-  const dividerLength = barPerimeter / dividers / 10;
+  const dividerLength = barPerimeter / dividersCount / 10;
 
   return (
     <svg
@@ -91,13 +121,13 @@ export function Velocimeter({
               cx={"50%"}
               cy={"50%"}
               fill="none"
-              strokeWidth={barStrokeWidth}
+              strokeWidth={barThickness}
               strokeDasharray={`${barPerimeter} ${
-                fullCircleBarPerimeter - barPerimeter
+                barTotalPerimeter - barPerimeter
               }`}
               strokeDashoffset={
                 barPerimeter +
-                (0.5 - barLengthPercentage) * (fullCircleBarPerimeter / 2)
+                (0.5 - barPerimeterPercentage) * (barTotalPerimeter / 2)
               }
             />
           </g>
@@ -112,13 +142,13 @@ export function Velocimeter({
               cx={"50%"}
               cy={"50%"}
               fill="none"
-              strokeWidth={barStrokeWidth}
-              strokeDasharray={`${
-                barValuePercentagePerimeter * fullCircleBarPerimeter
-              } ${(1 - barValuePercentagePerimeter) * fullCircleBarPerimeter}`}
+              strokeWidth={barThickness}
+              strokeDasharray={`${barFilledPerimeter * barTotalPerimeter} ${
+                (1 - barFilledPerimeter) * barTotalPerimeter
+              }`}
               strokeDashoffset={
                 barPerimeter +
-                (0.5 - barLengthPercentage) * (fullCircleBarPerimeter / 2)
+                (0.5 - barPerimeterPercentage) * (barTotalPerimeter / 2)
               }
             />
           </g>
@@ -153,14 +183,14 @@ export function Velocimeter({
               cx={"50%"}
               cy={"50%"}
               fill="none"
-              strokeWidth={centerCircleStrokeWidth}
+              strokeWidth={centerCircleThickness}
               strokeDasharray={`${centerCirclePerimeter} ${
-                fullCircleCenterCirclePerimeter - centerCirclePerimeter
+                centerCircleTotalPerimeter - centerCirclePerimeter
               }`}
               strokeDashoffset={
                 centerCirclePerimeter +
-                (0.5 - barLengthPercentage) *
-                  (fullCircleCenterCirclePerimeter / 2)
+                (0.5 - barPerimeterPercentage) *
+                  (centerCircleTotalPerimeter / 2)
               }
             />
           </g>
@@ -170,22 +200,22 @@ export function Velocimeter({
             className={twMerge("stroke-white/80 relative", className?.dividers)}
             style={{ stroke: styles?.color?.dividers }}
           >
-            {Array.from({ length: dividers + 1 }).map((_, idx) => (
+            {Array.from({ length: dividersCount + 1 }).map((_, idx) => (
               <circle
                 key={idx}
                 r={barRadius}
                 cx={"50%"}
                 cy={"50%"}
                 fill="none"
-                strokeWidth={barStrokeWidth}
+                strokeWidth={barThickness}
                 strokeDasharray={`${dividerLength} ${
-                  fullCircleBarPerimeter - dividerLength
+                  barTotalPerimeter - dividerLength
                 }`}
                 strokeDashoffset={
                   barPerimeter +
                   dividerLength / 2 -
-                  (idx * barPerimeter) / dividers +
-                  (0.5 - barLengthPercentage) * (fullCircleBarPerimeter / 2)
+                  (idx * barPerimeter) / dividersCount +
+                  (0.5 - barPerimeterPercentage) * (barTotalPerimeter / 2)
                 }
               />
             ))}
@@ -200,19 +230,19 @@ export function Velocimeter({
             textAnchor="middle"
             dominantBaseline="middle"
           >
-            {Array.from({ length: dividers + 1 }).map((_, idx) => {
+            {Array.from({ length: dividersCount + 1 }).map((_, idx) => {
               const indexAngle =
-                (((0.5 - (1 - barLengthPercentage)) * 180 -
-                  idx * ((barLengthPercentage * 360) / dividers)) *
+                (((0.5 - (1 - barPerimeterPercentage)) * 180 -
+                  idx * ((barPerimeterPercentage * 360) / dividersCount)) *
                   Math.PI) /
                 180;
               const translateX =
-                (barRadius - barStrokeWidth / 2) *
+                (barRadius - barThickness / 2) *
                 0.9 *
                 numbersDistanceRatio *
                 Math.cos(indexAngle);
               const translateY =
-                (barRadius - barStrokeWidth / 2) *
+                (barRadius - barThickness / 2) *
                 0.9 *
                 numbersDistanceRatio *
                 Math.sin(indexAngle);
@@ -224,7 +254,7 @@ export function Velocimeter({
                   y="50%"
                   transform={`translate(${-translateX}, ${translateY})`}
                 >
-                  {((maxValue * idx) / dividers).toFixed(0)}
+                  {((maxValue * idx) / dividersCount).toFixed(0)}
                 </text>
               );
             })}
@@ -237,7 +267,7 @@ export function Velocimeter({
           >
             <path
               d={`M
-                ${500 - centerCircleRadius + centerCircleStrokeWidth / 2}
+                ${500 - centerCircleRadius + centerCircleThickness / 2}
                 ${500 - needleWidth / 2}
                 l -${needleLength} ${needleWidth / 3}
                 a 1 1 0 0 0 0 ${needleWidth / 3}
@@ -245,8 +275,7 @@ export function Velocimeter({
                 a 1 1 0 0 0 0 -${needleWidth}
                 `}
               transform={`rotate(${
-                (0.5 - barLengthPercentage) * 180 +
-                barValuePercentagePerimeter * 360
+                (0.5 - barPerimeterPercentage) * 180 + barFilledPerimeter * 360
               } 500 500)`}
             />
           </g>
@@ -259,21 +288,19 @@ export function Velocimeter({
             >
               {Array.from({ length: 1 }).map((_, idx) => {
                 const indexAngle =
-                  (((0.5 - (1 - barLengthPercentage)) * 180 -
-                    (barLengthPercentage * 360 * goal) / maxValue) *
+                  (((0.5 - (1 - barPerimeterPercentage)) * 180 -
+                    (barPerimeterPercentage * 360 * goal) / maxValue) *
                     Math.PI) /
                   180;
                 const translateX =
-                  (barRadius - barStrokeWidth / 2) *
+                  (barRadius - barThickness / 2) *
                   0.9 *
                   numbersDistanceRatio *
-                  goalNumberDistanceRatio *
                   Math.cos(indexAngle);
                 const translateY =
-                  (barRadius - barStrokeWidth / 2) *
+                  (barRadius - barThickness / 2) *
                   0.9 *
                   numbersDistanceRatio *
-                  goalNumberDistanceRatio *
                   Math.sin(indexAngle);
 
                 return (
@@ -284,11 +311,11 @@ export function Velocimeter({
                         className?.goal?.needle
                       )}
                       d={`M
-                        ${500 - barRadius - barStrokeWidth / 2}
+                        ${500 - barRadius - barThickness / 2}
                         ${500 - needleWidth / 2}
-                        l ${barStrokeWidth} 0
+                        l ${barThickness} 0
                         a ${barRadius} ${barRadius} 0 0 1 0 ${needleWidth}
-                        l -${barStrokeWidth} 0
+                        l -${barThickness} 0
                         a
                         ${barRadius}
                         ${barRadius}
@@ -296,8 +323,8 @@ export function Velocimeter({
                         -${needleWidth}
                         `}
                       transform={`rotate(${
-                        (0.5 - barLengthPercentage) * 180 +
-                        goalPercentagePerimeter * 360
+                        (0.5 - barPerimeterPercentage) * 180 +
+                        goalFilledPerimeter * 360
                       } 500 500)`}
                     />
                     <text
