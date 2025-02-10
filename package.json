@@ -10,8 +10,8 @@
     "yalc:push": "npm run build && yalc push"
   },
   "exports": {
-    "./inputs": "./dist/inputs/index.js",
-    "./velocimeter": "./dist/velocimeter/index.js",
+    "./inputs": "./dist/library/inputs/index.js",
+    "./velocimeter": "./dist/library/velocimeter/index.js",
     "./styles.css": "./dist/index.css"
   },
   "keywords": [

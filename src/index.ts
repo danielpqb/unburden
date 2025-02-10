@@ -1,4 +1,4 @@
 import "./global.css";
 
-export * from "./inputs";
-export * from "./velocimeter";
+export * from "./library/inputs";
+export * from "./library/velocimeter";
