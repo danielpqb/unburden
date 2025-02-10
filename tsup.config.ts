@@ -3,7 +3,7 @@ import { defineConfig } from "tsup";
 export const tsup = defineConfig({
   entry: {
     index: "src/index.ts",
-    "inputs/index": "src/library/inputs/index.ts",
+    // "inputs/index": "src/library/inputs/index.ts",
     "velocimeter/index": "src/library/velocimeter/index.ts",
   },
   dts: true, // Gerar arquivos de definição de tipo (.d.ts)

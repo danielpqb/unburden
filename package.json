@@ -1,6 +1,6 @@
 {
   "name": "unburden",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "type": "module",
   "main": "dist/index.js",
   "module": "dist/index.js",
@@ -10,8 +10,7 @@
     "yalc:push": "npm run build && yalc push"
   },
   "exports": {
-    "./inputs": "./dist/library/inputs/index.js",
-    "./velocimeter": "./dist/library/velocimeter/index.js",
+    "./velocimeter": "./dist/velocimeter/index.js",
     "./styles.css": "./dist/index.css"
   },
   "keywords": [
