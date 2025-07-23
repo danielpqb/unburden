@@ -75,7 +75,7 @@ export function InputSelect({
 
       <div
         className={twMerge(
-          "input-base !p-0 flex flex-col overflow-hidden divide-y-2 divide-slate-500/10",
+          "input-base p-0! flex flex-col overflow-hidden divide-y-2 divide-slate-500/10",
           !!field.value && defaultValue !== field.value && "input-modified",
           errorMessageArray && "input-error",
           isSelectOpen && "!ring-opacity-80",

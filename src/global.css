@@ -1,19 +1,19 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-.input-base {
-  @apply w-full shadow p-2 rounded-md bg-white/90 backdrop-blur-sm outline-none ring-2 ring-inset ring-slate-500 ring-opacity-60 focus:ring-opacity-80;
+@custom-variant dark (&:where(.dark, .dark *));
+
+@utility input-base {
+  @apply w-full shadow-sm p-2 rounded-md bg-white/90 backdrop-blur-xs outline-hidden ring-2 ring-inset ring-slate-500;
 }
 
-.input-modified {
-  @apply ring-amber-500 ring-opacity-60;
+@utility input-modified {
+  @apply ring-amber-500;
 }
 
-.input-error {
-  @apply ring-red-500 ring-opacity-60;
+@utility input-error {
+  @apply ring-red-500;
 }
 
-.input-disabled {
+@utility input-disabled {
   @apply pointer-events-none [&>*:not(label)]:opacity-75;
 }

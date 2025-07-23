@@ -31,12 +31,6 @@
     "moduleResolution": "bundler",
     "emitDeclarationOnly": true
   },
-  "include": [
-    "src",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts",
-    "postcss.config.cjss"
-  ],
+  "include": ["src", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
   "exclude": ["node_modules", "dist"]
 }

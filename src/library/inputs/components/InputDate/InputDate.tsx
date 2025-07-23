@@ -53,7 +53,7 @@ export function InputDate({
 
       <input
         className={twMerge(
-          "input-base !py-[7px]",
+          "input-base py-[7px]!",
           !!currentValue &&
             defaultValue.split("T")[0] !== currentValue &&
             "input-modified",

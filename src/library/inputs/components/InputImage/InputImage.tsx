@@ -33,7 +33,7 @@ export function InputImage({
 
       <picture
         className={twMerge(
-          "[&>*]:max-h-52 [&>*]:rounded-lg [&>*]:shadow flex justify-center items-center self-start",
+          "*:max-h-52 *:rounded-lg *:shadow flex justify-center items-center self-start",
           className?.picture
         )}
         onError={() => {
